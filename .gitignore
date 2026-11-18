@@ -44,3 +44,6 @@ example
 # generated native folders
 /ios
 /android
+
+# 本地构建产物
+build/
