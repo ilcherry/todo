@@ -1,56 +1,54 @@
-# Welcome to your Expo app 👋
+# 轻待办 · 小清新待办应用
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+一个用 Expo + React Native 写的待办应用，薄荷绿 + 奶油白的「小清新」视觉，一套代码同时跑 iOS / Android / Web。
 
-## Get started
+## 功能
 
-1. Install dependencies
+- **新建 / 编辑**：标题、备注、分类（个人 / 工作 / 学习 / 生活）、优先级（重要 / 一般 / 随手）、截止日期（今天 / 明天 / 本周日 / 不设）
+- **勾选完成**：圆形勾选动画，完成项自动沉到「已完成」分组
+- **左滑删除**：滑出删除按钮，删除后底部弹出「撤销」提示（4 秒）
+- **筛选**：全部 / 今天 / 本周 / 已完成，可叠加分类筛选与关键词搜索
+- **数据概览**：今日进度环、待办与完成数量、逾期提醒
+- **本地持久化**：AsyncStorage 存储，重启应用不丢数据
+- **响应式**：手机全宽，大屏自动收成 540 宽的居中列
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **src/app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## 运行
 
 ```bash
-npm run reset-project
+npm install
+npx expo start          # 扫码用 Expo Go，或按 i / a / w 打开模拟器与浏览器
+npx expo start --web    # 只跑网页版
 ```
 
-This command will move the starter code to the **example** directory and create a blank **src/app** directory where you can start developing.
+## 图标与 Logo
 
-### Other setup steps
+Logo 为「白色清单卡片 + 薄荷叶片」，取自应用内的待办卡片与空状态插画，配色沿用 `#7ED3B5 → #2E8C74` 渐变。
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| 文件 | 用途 | 规格 |
+| --- | --- | --- |
+| `assets/images/icon.png` | iOS / 通用应用图标 | 1024×1024，无 alpha |
+| `assets/images/android-icon-foreground.png` | Android 自适应图标前景 | 1024×1024，透明，缩至安全区 |
+| `assets/images/android-icon-background.png` | Android 自适应图标背景 | 1024×1024 渐变 |
+| `assets/images/android-icon-monochrome.png` | Android 13+ 主题图标 | 1024×1024，白色剪影 |
+| `assets/images/splash-icon.png` | 启动页 | 512×512 |
+| `assets/images/favicon.png` | Web 站点图标 | 128×128 |
+| `assets/images/logo.png` | 应用内标题栏品牌标识 | 128×128 |
+| `assets/logo.svg` | 矢量母版，改色/改形从这里改 | 1024 viewBox |
 
-## Learn more
+## 结构
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+src/
+  app/                 # Expo Router 路由（index 为唯一页面）
+  components/          # UI：任务卡片、编辑面板、进度环、空状态、图标
+  constants/design.ts  # 配色、圆角、阴影、字号等设计变量
+  store/use-todos.ts   # 待办状态 + AsyncStorage 持久化 + 排序
+  types/todo.ts        # 数据模型
+  utils/date.ts        # 本地日期键、今天 / 本周、友好日期文案
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## 类型检查
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+```bash
+npx tsc --noEmit
+```
